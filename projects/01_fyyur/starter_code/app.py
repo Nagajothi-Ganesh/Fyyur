@@ -43,7 +43,7 @@ app.config.from_object('config')
 db.init_app(app)
 
 migrate = Migrate(app,db)
-
+app.url_map.strict_slashes = False
 #----------------------------------------------------------------------------#
 # Filters.
 #----------------------------------------------------------------------------#
@@ -329,9 +329,9 @@ def show_artist(artist_id):
     upcoming_shows = []
     for show in artist_details.shows:
       temp_show = {
-        'artist_id': show.venue_id,
-        'artist_name': show.venues.name,
-        'artist_image_link': show.venues.image_link,
+        'venue_id': show.venue_id,
+        'venue_name': show.venues.name,
+        'venue_image_link': show.venues.image_link,
         'start_time': str(show.start_time)
       }
       if show.start_time <= utc.localize(datetime.now()):
